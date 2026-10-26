@@ -225,5 +225,28 @@ window.CardPulseConfig = {
   });
 })();
 </script>
+<!-- Microsoft Clarity: heatmaps and session recordings. One project for the whole domain (this card and the
+     portfolio at alzahmah.com share it, so a visitor's way from one to the other is one session).
+     Runs only on the live domain, a second after the card has loaded, and never in a browser the owner has
+     excluded with ?cardpulse=off (?cardpulse=on undoes it). The project id is public: it ships in the page. -->
+<script>
+(function (w, d, id) {
+  if (location.hostname !== "alzahmah.com") return;
+  try {
+    var q = new URLSearchParams(location.search).get("cardpulse");
+    if (q === "off") localStorage.setItem("cardpulse.off", "1");
+    if (q === "on") localStorage.removeItem("cardpulse.off");
+    if (localStorage.getItem("cardpulse.off") === "1") return;
+  } catch (e) {}
+  w.clarity = w.clarity || function () { (w.clarity.q = w.clarity.q || []).push(arguments); };
+  var load = function () {
+    setTimeout(function () {
+      var s = d.createElement("script"); s.async = true; s.src = "https://www.clarity.ms/tag/" + id;
+      d.head.appendChild(s);
+    }, 1000);
+  };
+  d.readyState === "complete" ? load() : w.addEventListener("load", load);
+})(window, document, "z3w7vdrrfc");
+</script>
 </body>
 </html>
